@@ -30,4 +30,4 @@ MIT
 
 **Свободное копирование**
 
-[site]: <https://arman1231.github.io/russian-travel/index.html>
+[site]: <https://arman1231.github.io/mesto/index.html>
