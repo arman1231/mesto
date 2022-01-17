@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto - сервис для хранения фотографий из путешествий</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+
+<body class="wrap">
+  <div class="page">
+    <header class="header page__header">
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип вебсайта Место ">
+    </header>
+    <main class="content page__content">
+      <section class="profile">
+        <div class="profile__general">
+          <img class="profile__user-image" src="./images/image.jpg" alt="Изображение профиля">
+          <div class="profile__credentials">
+            <div class="profile__info">
+              <p class="profile__name">Жак-Ив Кусто</p>
+              <a class="profile__edit-btn" href="#">
+                <img class="profile__icon" src="./images/pencil.svg" alt="Редактировать профиль">
+              </a>
+            </div>
+            <p class="profile__title">Исследователь океана</p>
+          </div>
+        </div>
+        <div class="profile__add-new">
+          <a class="profile__add-link" href="#">
+            <img class="profile__plus-icon" src="./images/cross.svg" alt="Добавить фото">
+          </a>
+        </div>
+      </section>
+      <section class="gallery page__gallery">
+        <div class="gallery__item">
+          <img class="gallery__image" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
+          <div class="gallery__info">
+            <p class="gallery__image-title">Карачаевск</p>
+            <img class="gallery__icon" src="./images/heart.svg" alt="Лайк">
+          </div>
+        </div>
+        <div class="gallery__item">
+          <img class="gallery__image" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Карачаевск">
+          <div class="gallery__info">
+            <p class="gallery__image-title">Гора Эльбрус</p>
+            <img class="gallery__icon" src="./images/heart.svg" alt="Лайк">
+          </div>
+        </div>
+        <div class="gallery__item">
+          <img class="gallery__image" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Карачаевск">
+          <div class="gallery__info">
+            <p class="gallery__image-title">Домбай</p>
+            <img class="gallery__icon" src="./images/heart.svg" alt="Лайк">
+          </div>
+        </div>
+        <div class="gallery__item">
+          <img class="gallery__image" src="./images/gleb-lucky-MEc6l5XQwoA-unsplash.jpg" alt="Карачаевск">
+          <div class="gallery__info">
+            <p class="gallery__image-title">Архыз</p>
+            <img class="gallery__icon" src="./images/heart.svg" alt="Лайк">
+          </div>
+        </div>
+        <div class="gallery__item">
+          <img class="gallery__image" src="./images/a-p-Ca6bEl-gUEw-unsplash.jpg" alt="Карачаевск">
+          <div class="gallery__info">
+            <p class="gallery__image-title">Цахкадзор</p>
+            <img class="gallery__icon gallery__icon_active" src="./images/heart.svg" alt="Лайк">
+          </div>
+        </div>
+        <div class="gallery__item">
+          <img class="gallery__image" src="./images/eugeniya-belova-7CK7vqpqyUY-karachai.jpg" alt="Карачаевск">
+          <div class="gallery__info">
+            <p class="gallery__image-title">Карачаево-Черкесия</p>
+            <img class="gallery__icon" src="./images/heart.svg" alt="Лайк">
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer page__footer">
+      <p class="footer__text">&copy; 2022 Mesto Russia</p>
+    </footer>
+    <div class="modal">
+      <div class="modal__container">
+        <img class="modal__close" src="./images/close.svg" alt="кнопка закрыть">
+        <form class="modal__form" action="">
+          <h2 class="modal__heading">Редактировать профиль</h2>
+          <fieldset class="modal__user-data">
+            <input class="modal__input" id="modal__name" type="text" name="user-name" value="Жак-Ив Кусто">
+            <input class="modal__input" id="modal__title" type="text" name="user-title" value="Исследователь океана">
+          </fieldset>
+          <fieldset class="modal__handlers">
+            <button class="modal__submit" type="submit">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="./scripts/script.js"></script>
+</body>
+
+</html>
