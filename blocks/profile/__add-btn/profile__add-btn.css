@@ -1,14 +1,16 @@
-.profile__add-link {
+.profile__add-btn {
   padding: 14px 64px;
+  background: 0;
   border: 2px solid rgba(255, 255, 255, 1);
   border-radius: 2px;
   box-sizing: border-box;
+  cursor: pointer;
 }
-.profile__add-link:hover {
+.profile__add-btn:hover {
   opacity: 0.6;
 }
 @media screen and (max-width: 780px) and (min-width: 320px) {
-  .profile__add-link {
+  .profile__add-btn {
     padding: 14px 128px;
   }
 }
