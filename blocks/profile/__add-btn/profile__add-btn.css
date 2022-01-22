@@ -1,4 +1,6 @@
 .profile__add-btn {
+  display: flex;
+  align-items: center;
   padding: 14px 64px;
   background: 0;
   border: 2px solid rgba(255, 255, 255, 1);
