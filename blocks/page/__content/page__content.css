@@ -1,5 +1,6 @@
 .page__content {
   margin: 37px 200px 0 200px;
+  transition: margin 0.3s ease-in;
 }
 @media screen and (max-width: 1024px) and (min-width: 768px) {
   .page__content {
