@@ -1,5 +1,11 @@
 .profile__info {
   display: flex;
+  max-width: 44vw;
   flex-direction: row;
   align-items: baseline;
+}
+@media screen and (max-width: 780px) and (min-width: 320px) {
+  .profile__info {
+    max-width: 100vw;
+  }
 }

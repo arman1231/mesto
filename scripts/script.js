@@ -10,6 +10,8 @@ let profileTitle = document.querySelector(".profile__title");
 
 const openModal = () => {
   modal.classList.add("modal_opened");
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileTitle.textContent;
 };
 const closeModal = () => {
   modal.classList.remove("modal_opened");
@@ -23,11 +25,9 @@ closeBtn.addEventListener("click", closeModal);
 // });
 const formSubmitHandler = (e) => {
   e.preventDefault();
-  let nameInputVal = nameInput.value;
-  let jobInputVal = jobInput.value;
 
-  profileName.textContent = nameInputVal;
-  profileTitle.textContent = jobInputVal;
+  profileName.textContent += profileName.textContent;
+  profileTitle.textContent += profileTitle.textContent;
   closeModal();
 };
 form.addEventListener("submit", formSubmitHandler);
