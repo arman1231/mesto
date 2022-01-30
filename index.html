@@ -33,7 +33,21 @@
         </button>
       </section>
       <section class="gallery page__gallery">
-        <div class="gallery__item">
+        <template id="gallery__item">
+          <div class="gallery__item">
+            <button class="gallery__delete-button">
+              <img class="gallery__delete-icon" src="./images/trashbin.svg" alt="Удалить карточку">
+            </button>
+            <img class="gallery__image">
+            <div class="gallery__info">
+              <p class="gallery__image-title"></p>
+              <button class="gallery__button" type="button">
+                <img class="gallery__icon" src="./images/heart.svg" alt="Лайк">
+              </button>
+            </div>
+          </div>
+        </template>
+        <!-- <div class="gallery__item">
           <img class="gallery__image" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
           <div class="gallery__info">
             <p class="gallery__image-title">Карачаевск</p>
@@ -73,7 +87,7 @@
           <img class="gallery__image" src="./images/a-p-Ca6bEl-gUEw-unsplash.jpg" alt="Цахкадзор">
           <div class="gallery__info">
             <p class="gallery__image-title">Цахкадзор</p>
-            <button class="gallery__button gallery__button_active" type="button">
+            <button class="gallery__button" type="button">
               <img class="gallery__icon" src="./images/heart.svg" alt="Лайк">
             </button>
           </div>
@@ -86,19 +100,19 @@
               <img class="gallery__icon" src="./images/heart.svg" alt="Лайк">
             </button>
           </div>
-        </div>
+        </div> -->
       </section>
     </main>
     <footer class="footer page__footer">
       <p class="footer__text">&copy; 2022 Mesto Russia</p>
     </footer>
-    <div class="modal">
+    <div class="modal modal_edit-profile">
       <div class="modal__container">
         <button class="modal__close-btn" type="button">
           <img class="modal__close-icon" src="./images/close.svg" alt="кнопка закрыть">
         </button>
         <h2 class="modal__heading">Редактировать профиль</h2>
-        <form class="modal__form" name="modal-form" action="#">
+        <form class="modal__form" name="edit-form" action="#">
           <fieldset class="modal__user-data">
             <input class="modal__input" id="modal__name" type="text" name="user-name">
             <input class="modal__input" id="modal__title" type="text" name="user-title">
@@ -107,6 +121,35 @@
             <button class="modal__submit" type="submit">Сохранить</button>
           </fieldset>
         </form>
+      </div>
+    </div>
+    <div class="modal modal_add-new-place">
+      <div class="modal__container">
+        <button class="modal__close-btn" type="button">
+          <img class="modal__close-icon" src="./images/close.svg" alt="кнопка закрыть">
+        </button>
+        <h2 class="modal__heading">Новое место</h2>
+        <form class="modal__form" name="add-form" action="#">
+          <fieldset class="modal__user-data">
+            <input class="modal__input" id="modal__place-name" type="text" name="place-name" placeholder="Название">
+            <input class="modal__input" id="modal__place-img-link" type="text" name="place-img-link"
+              placeholder="Ссылка на картинку">
+          </fieldset>
+          <fieldset class="modal__handlers">
+            <button class="modal__submit" type="submit">Создать</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div class="image-modal">
+      <div class="image-modal__container">
+        <div class="image-modal__wrapper">
+          <button class="image-modal__close-btn" type="button">
+            <img class="image-modal__close-icon" src="./images/close.svg" alt="кнопка закрыть">
+          </button>
+          <img class="image-modal__img">
+          <p class="image-modal__caption"></p>
+        </div>
       </div>
     </div>
   </div>

@@ -1,5 +1,4 @@
-.modal {
-  /* display: none; */
+.image-modal{
   transition: opacity 0.3s ease-in-out;
   opacity: 0;
   height: 0;
@@ -9,5 +8,4 @@
   background-color: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
-  width: 100%;
 }
