@@ -152,12 +152,16 @@ const handleEditProfileForm = (e) => {
 };
 addListenerToForm(editProfileForm, handleEditProfileForm);
 
+const resetAppPlaceForm = (placeName, placeImgLink) => {
+  placeName.value = null;
+  placeImgLink.value = null;
+};
+
 const handleAddPlaceForm = (e) => {
   e.preventDefault();
   addSingleGalleryItem(modalPlaceName.value, modalPlaceImgLink.value);
   closeModals();
-  modalPlaceName.value = null;
-  modalPlaceImgLink.value = null;
+  resetAppPlaceForm(modalPlaceName, modalPlaceImgLink);
 };
 
 addListenerToForm(addPlaceForm, handleAddPlaceForm);
