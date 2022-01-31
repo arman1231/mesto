@@ -40,7 +40,6 @@
 @import url(../blocks/modal/__submit/modal__submit.css);
 @import url(../blocks/modal/__user-data/modal__user-data.css);
 @import url(../blocks/modal/__handlers/modal__handlers.css);
-@import url(../blocks/image-modal/image-modal.css);
 @import url(../blocks/image-modal/__container/image-modal__container.css);
 @import url(../blocks/image-modal/__img/image-modal__img.css);
 @import url(../blocks/image-modal/_opened/image-modal_opened.css);

@@ -26,22 +26,22 @@ const initialCards = [
 ];
 const gallery = document.querySelector('.gallery');
 const galleryItemTemplate = document.querySelector('#gallery__item').content;
+const galleryImgEl = document.querySelector('.gallery__image');
 
 const modals = document.querySelectorAll('.modal');
+const EditProfileModal = document.querySelector('.modal_edit-profile');
+const AddPlaceModal = document.querySelector('.modal_add-new-place');
 const editProfileBtn = document.querySelector('.profile__edit-btn');
 const addPlaceBtn = document.querySelector('.profile__add-btn');
-const formSubmits = document.querySelectorAll('.modal__submit');
 const closeBtns = document.querySelectorAll('.modal__close-btn');
 const forms = document.querySelectorAll('.modal__form');
-let nameInput = document.querySelector('#modal__name');
-let jobInput = document.querySelector('#modal__title');
-let profileName = document.querySelector('.profile__name');
-let profileTitle = document.querySelector('.profile__title');
+const nameInput = document.querySelector('#modal__name');
+const jobInput = document.querySelector('#modal__title');
+const profileName = document.querySelector('.profile__name');
+const profileTitle = document.querySelector('.profile__title');
 
-let modalPlaceName = document.querySelector('#modal__place-name');
-let modalPlaceImgLink = document.querySelector('#modal__place-img-link');
-
-
+const modalPlaceName = document.querySelector('#modal__place-name');
+const modalPlaceImgLink = document.querySelector('#modal__place-img-link');
 
 const render = (arr) => {
   arr.forEach((element) => {
@@ -49,18 +49,37 @@ const render = (arr) => {
   })
 };
 
-const renderGalleryItems = (itemTitle, itemImageLink) => {
+const createGalleryItem = (itemTitle, itemImageLink) => {
   const galleryItem = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
+  const galleryImgEl = galleryItem.querySelector('.gallery__image');
   galleryItem.querySelector('.gallery__image-title').textContent = itemTitle;
-  galleryItem.querySelector('.gallery__image').src = itemImageLink;
-  galleryItem.querySelector('.gallery__image').alt = itemTitle;
+  galleryImgEl.src = itemImageLink;
+  galleryImgEl.alt = itemTitle;
+  return galleryItem;
+};
+
+const renderGalleryItems = (itemTitle, itemImageLink) => {
+  const galleryItem = createGalleryItem(itemTitle, itemImageLink);
+  // const galleryItem = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
+  // const galleryImgEl = galleryItem.querySelector('.gallery__image');
+  // galleryItem.querySelector('.gallery__image-title').textContent = itemTitle;
+  // galleryImgEl.src = itemImageLink;
+  // galleryImgEl.alt = itemTitle;
   addListeners(galleryItem);
   gallery.appendChild(galleryItem);
 };
 
+const openImg = (e) => {
+  imageModal.classList.add('modal_opened');
+  modalImageSrc.src = e.target.src;
+  modalImageSrc.alt = e.target.alt;
+  modalImageCaption.textContent = e.target.alt;
+}
+
 const addListeners = (el) => {
   el.querySelector('.gallery__button').addEventListener('click', handleLike);
   el.querySelector('.gallery__delete-button').addEventListener('click', handleDelete);
+  el.querySelector('.gallery__image').addEventListener('click', openImg);
 };
 
 const handleLike = (e) => {
@@ -73,33 +92,44 @@ const handleDelete = (e) => {
 
 render(initialCards);
 
+const openPopup = (modal) => {
+  modal.classList.add('modal_opened');
+}
+
+const closePopup = (modal) => {
+  modal.classList.remove('modal_opened');
+}
+
 const openEditProfileModal = () => {
-  modals.forEach((modal) => {
-    if (modal.classList.contains('modal_edit-profile')){
-      modal.classList.add('modal_opened');
-      nameInput.value = profileName.textContent;
-      jobInput.value = profileTitle.textContent;
-    }
-  });
-
+  if (EditProfileModal){
+    openPopup(EditProfileModal);
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileTitle.textContent;
+  }
 };
+// const openEditProfileModal = () => {
+//   modals.forEach((modal) => {
+//     if (modal.classList.contains('modal_edit-profile')){
+//       modal.classList.add('modal_opened');
+//       nameInput.value = profileName.textContent;
+//       jobInput.value = profileTitle.textContent;
+//     }
+//   });
+// };
+
 const openAddPlaceModal = () => {
-  modals.forEach((modal) => {
-    if (modal.classList.contains('modal_add-new-place')){
-      modal.classList.add('modal_opened');
-    }
-  })
-
+  if (AddPlaceModal){
+    openPopup(AddPlaceModal);
+  }
 };
-const closeModal = () => {
+const closeModals = () => {
   modals.forEach((modal) => {
     modal.classList.remove('modal_opened');
   })
-
 };
 
 closeBtns.forEach((btn) => {
-  btn.addEventListener('click', closeModal)
+  btn.addEventListener('click', closeModals)
 });
 editProfileBtn.addEventListener('click', openEditProfileModal);
 addPlaceBtn.addEventListener('click', openAddPlaceModal);
@@ -110,48 +140,47 @@ addPlaceBtn.addEventListener('click', openAddPlaceModal);
 //   }
 // });
 
+const EditProfileForm = document.querySelector('form[name="edit-form"]');
+const AddPlaceForm = document.querySelector('form[name="add-form"]');
+
 const imageModal = document.querySelector('.image-modal');
-const galleryImages = document.querySelectorAll('.gallery__image');
 const modalImageSrc = document.querySelector('.image-modal__img');
 const modalImageCaption = document.querySelector('.image-modal__caption');
 const modalImageCloseBtn = document.querySelector('.image-modal__close-icon');
 
 const addSingleGalleryItem = (itemTitle, itemImageLink) => {
-  const galleryItem = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
-  galleryItem.querySelector('.gallery__image-title').textContent = itemTitle;
-  galleryItem.querySelector('.gallery__image').src = itemImageLink;
-  galleryItem.querySelector('.gallery__image').alt = itemTitle;
+  const galleryItem = createGalleryItem(itemTitle, itemImageLink);
   addListeners(galleryItem);
   gallery.prepend(galleryItem);
 }
 
-const formSubmitHandler = (e) => {
-  e.preventDefault();
-  if (e.target.name === 'edit-form') {
-    profileName.textContent = nameInput.value;
-    profileTitle.textContent = jobInput.value;
-  } else if (e.target.name === 'add-form') {
-    addSingleGalleryItem(modalPlaceName.value, modalPlaceImgLink.value);
-  }
-  closeModal();
+// const handleFormSubmit = (e) => {
+//   e.preventDefault();
+//   if (e.target.name === 'edit-form') {
+//     profileName.textContent = nameInput.value;
+//     profileTitle.textContent = jobInput.value;
+//   } else if (e.target.name === 'add-form') {
+//     addSingleGalleryItem(modalPlaceName.value, modalPlaceImgLink.value);
+//   }
+//   closeModals();
+// };
+
+const addListenerToForm = (form, funcName) => {
+  form.addEventListener('submit', funcName);
 };
 
-forms.forEach((form) => {
-  form.addEventListener('submit', formSubmitHandler);
-})
+const handleEditProfileForm = (e) => {
+  e.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileTitle.textContent = jobInput.value;
+  closeModals();
+};
+addListenerToForm(EditProfileForm, handleEditProfileForm);
 
-const openImg = (e) => {
-  imageModal.classList.add('image-modal_opened');
-  modalImageSrc.src = e.target.src;
-  modalImageSrc.alt = e.target.alt;
-  modalImageCaption.textContent = e.target.nextElementSibling.children[0].textContent;
-}
+const handleAddPlaceForm = (e) => {
+  e.preventDefault();
+  addSingleGalleryItem(modalPlaceName.value, modalPlaceImgLink.value);
+  closeModals();
+};
 
-galleryImages.forEach((el) => {
-  el.addEventListener('click', openImg);
-});
-
-const closeImageModal = () => {
-  imageModal.classList.remove('image-modal_opened');
-}
-modalImageCloseBtn.addEventListener('click', closeImageModal);
+addListenerToForm(AddPlaceForm, handleAddPlaceForm);
