@@ -40,6 +40,7 @@ const jobInput = document.querySelector('#modal__title');
 const profileName = document.querySelector('.profile__name');
 const profileTitle = document.querySelector('.profile__title');
 
+
 const modalPlaceName = document.querySelector('#modal__place-name');
 const modalPlaceImgLink = document.querySelector('#modal__place-img-link');
 
@@ -55,22 +56,17 @@ const createGalleryItem = (itemTitle, itemImageLink) => {
   galleryItem.querySelector('.gallery__image-title').textContent = itemTitle;
   galleryImgEl.src = itemImageLink;
   galleryImgEl.alt = itemTitle;
+  addListeners(galleryItem);
   return galleryItem;
 };
 
 const renderGalleryItems = (itemTitle, itemImageLink) => {
   const galleryItem = createGalleryItem(itemTitle, itemImageLink);
-  // const galleryItem = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
-  // const galleryImgEl = galleryItem.querySelector('.gallery__image');
-  // galleryItem.querySelector('.gallery__image-title').textContent = itemTitle;
-  // galleryImgEl.src = itemImageLink;
-  // galleryImgEl.alt = itemTitle;
-  addListeners(galleryItem);
   gallery.appendChild(galleryItem);
 };
 
 const openImg = (e) => {
-  imageModal.classList.add('modal_opened');
+  openPopup(imageModal);
   modalImageSrc.src = e.target.src;
   modalImageSrc.alt = e.target.alt;
   modalImageCaption.textContent = e.target.alt;
@@ -107,15 +103,6 @@ const openEditProfileModal = () => {
     jobInput.value = profileTitle.textContent;
   }
 };
-// const openEditProfileModal = () => {
-//   modals.forEach((modal) => {
-//     if (modal.classList.contains('modal_edit-profile')){
-//       modal.classList.add('modal_opened');
-//       nameInput.value = profileName.textContent;
-//       jobInput.value = profileTitle.textContent;
-//     }
-//   });
-// };
 
 const openAddPlaceModal = () => {
   if (AddPlaceModal){
@@ -124,8 +111,8 @@ const openAddPlaceModal = () => {
 };
 const closeModals = () => {
   modals.forEach((modal) => {
-    modal.classList.remove('modal_opened');
-  })
+    closePopup(modal);
+  });
 };
 
 closeBtns.forEach((btn) => {
@@ -140,8 +127,8 @@ addPlaceBtn.addEventListener('click', openAddPlaceModal);
 //   }
 // });
 
-const EditProfileForm = document.querySelector('form[name="edit-form"]');
-const AddPlaceForm = document.querySelector('form[name="add-form"]');
+const editProfileForm = document.querySelector('form[name="edit-form"]');
+const addPlaceForm = document.querySelector('form[name="add-form"]');
 
 const imageModal = document.querySelector('.image-modal');
 const modalImageSrc = document.querySelector('.image-modal__img');
@@ -150,20 +137,8 @@ const modalImageCloseBtn = document.querySelector('.image-modal__close-icon');
 
 const addSingleGalleryItem = (itemTitle, itemImageLink) => {
   const galleryItem = createGalleryItem(itemTitle, itemImageLink);
-  addListeners(galleryItem);
   gallery.prepend(galleryItem);
 }
-
-// const handleFormSubmit = (e) => {
-//   e.preventDefault();
-//   if (e.target.name === 'edit-form') {
-//     profileName.textContent = nameInput.value;
-//     profileTitle.textContent = jobInput.value;
-//   } else if (e.target.name === 'add-form') {
-//     addSingleGalleryItem(modalPlaceName.value, modalPlaceImgLink.value);
-//   }
-//   closeModals();
-// };
 
 const addListenerToForm = (form, funcName) => {
   form.addEventListener('submit', funcName);
@@ -175,12 +150,14 @@ const handleEditProfileForm = (e) => {
   profileTitle.textContent = jobInput.value;
   closeModals();
 };
-addListenerToForm(EditProfileForm, handleEditProfileForm);
+addListenerToForm(editProfileForm, handleEditProfileForm);
 
 const handleAddPlaceForm = (e) => {
   e.preventDefault();
   addSingleGalleryItem(modalPlaceName.value, modalPlaceImgLink.value);
   closeModals();
+  modalPlaceName.value = null;
+  modalPlaceImgLink.value = null;
 };
 
-addListenerToForm(AddPlaceForm, handleAddPlaceForm);
+addListenerToForm(addPlaceForm, handleAddPlaceForm);
