@@ -37,9 +37,12 @@
 @import url(../blocks/modal/__close-icon/modal__close-icon.css);
 @import url(../blocks/modal/__heading/modal__heading.css);
 @import url(../blocks/modal/__input/modal__input.css);
+@import url(../blocks/modal/__input/_state/modal__input_state_error.css);
 @import url(../blocks/modal/__submit/modal__submit.css);
+@import url(../blocks/modal/__submit/_state/modal__submit_state_disabled.css);
 @import url(../blocks/modal/__user-data/modal__user-data.css);
 @import url(../blocks/modal/__handlers/modal__handlers.css);
+@import url(../blocks/modal/__input-error/_active/modal__input-error_active.css);
 @import url(../blocks/image-modal/__container/image-modal__container.css);
 @import url(../blocks/image-modal/__img/image-modal__img.css);
 @import url(../blocks/image-modal/_opened/image-modal_opened.css);

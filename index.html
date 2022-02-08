@@ -58,10 +58,12 @@
           <img class="modal__close-icon" src="./images/close.svg" alt="кнопка закрыть">
         </button>
         <h2 class="modal__heading">Редактировать профиль</h2>
-        <form class="modal__form" name="edit-form" action="#">
+        <form class="modal__form" name="edit-form" action="#" novalidate>
           <fieldset class="modal__user-data">
-            <input class="modal__input" id="modal__name" type="text" name="user-name">
-            <input class="modal__input" id="modal__title" type="text" name="user-title">
+            <input class="modal__input" id="modal__name" type="text" name="user-name" minlength="2" maxlength="40" required>
+            <span class="modal__input-error user-name-error"></span>
+            <input class="modal__input" id="modal__title" type="text" name="user-title" minlength="2" maxlength="200" required>
+            <span class="modal__input-error user-title-error"></span>
           </fieldset>
           <fieldset class="modal__handlers">
             <button class="modal__submit" type="submit">Сохранить</button>
@@ -75,11 +77,14 @@
           <img class="modal__close-icon" src="./images/close.svg" alt="кнопка закрыть">
         </button>
         <h2 class="modal__heading">Новое место</h2>
-        <form class="modal__form" name="add-form" action="#">
+        <form class="modal__form" name="add-form" action="#" novalidate>
           <fieldset class="modal__user-data">
-            <input class="modal__input" id="modal__place-name" type="text" name="place-name" placeholder="Название">
-            <input class="modal__input" id="modal__place-img-link" type="text" name="place-img-link"
-              placeholder="Ссылка на картинку">
+            <input class="modal__input" id="modal__place-name" type="text" name="place-name" placeholder="Название" minlength="2" maxlength="30"
+              required>
+            <span class="modal__input-error place-name-error"></span>
+            <input class="modal__input" id="modal__place-img-link" type="url" name="place-img-link"
+              placeholder="Ссылка на картинку" required>
+            <span class="modal__input-error place-img-link-error"></span>
           </fieldset>
           <fieldset class="modal__handlers">
             <button class="modal__submit" type="submit">Создать</button>
@@ -111,6 +116,7 @@
     </div> -->
   </div>
   <script src="./scripts/script.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>

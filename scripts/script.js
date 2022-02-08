@@ -70,7 +70,7 @@ const openImg = (e) => {
   modalImageSrc.src = e.target.src;
   modalImageSrc.alt = e.target.alt;
   modalImageCaption.textContent = e.target.alt;
-}
+};
 
 const addListeners = (el) => {
   el.querySelector('.gallery__button').addEventListener('click', handleLike);
@@ -90,10 +90,12 @@ render(initialCards);
 
 const openPopup = (modal) => {
   modal.classList.add('modal_opened');
+  document.addEventListener('keydown', closeOnEsc);
 }
 
 const closePopup = (modal) => {
   modal.classList.remove('modal_opened');
+  document.removeEventListener('keydown', closeOnEsc);
 }
 
 const openEditProfileModal = () => {
@@ -121,16 +123,12 @@ closeBtns.forEach((btn) => {
 editProfileBtn.addEventListener('click', openEditProfileModal);
 addPlaceBtn.addEventListener('click', openAddPlaceModal);
 
-// modal.addEventListener('click', (e) => {
-//   if (e.currentTarget === e.target) {
-//     modal.classList.remove('modal_opened');
-//   }
-// });
 
 const editProfileForm = document.querySelector('form[name="edit-form"]');
 const addPlaceForm = document.querySelector('form[name="add-form"]');
 
 const imageModal = document.querySelector('.image-modal');
+const imageModalContainer = document.querySelector('.image-modal__container');
 const modalImageSrc = document.querySelector('.image-modal__img');
 const modalImageCaption = document.querySelector('.image-modal__caption');
 const modalImageCloseBtn = document.querySelector('.image-modal__close-icon');
@@ -165,3 +163,26 @@ const handleAddPlaceForm = (e) => {
 };
 
 addListenerToForm(addPlaceForm, handleAddPlaceForm);
+
+// закрываем модальные окна на клик по оверлею
+modals.forEach((modal) => {
+  modal.addEventListener('click', (e) => {
+    if (e.currentTarget === e.target) {
+      closePopup(modal);
+    }
+  })
+});
+
+//закрываем попап с картинкой на клик по оверлею
+imageModalContainer.addEventListener('click', (e) => {
+  if (e.currentTarget === e.target) {
+        closeModals();
+      }
+});
+
+// функция закрытия на ESC
+const closeOnEsc = (e) => {
+  if (e.key === 'Escape') {
+    closeModals();
+  }
+};

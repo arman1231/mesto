@@ -8,9 +8,9 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-family: inherit;
 }
-.modal__input:focus {
+/* .modal__input:focus {
   outline: none;
   border: 1px solid red;
   border-radius: 5px;
   padding: 5px;
-}
+} */
