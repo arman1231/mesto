@@ -29,8 +29,8 @@ const galleryItemTemplate = document.querySelector('#gallery__item').content;
 const galleryImgEl = document.querySelector('.gallery__image');
 
 const modals = document.querySelectorAll('.modal');
-const EditProfileModal = document.querySelector('.modal_edit-profile');
-const AddPlaceModal = document.querySelector('.modal_add-new-place');
+const editProfileModal = document.querySelector('.modal_edit-profile');
+const addPlaceModal = document.querySelector('.modal_add-new-place');
 const editProfileBtn = document.querySelector('.profile__edit-btn');
 const addPlaceBtn = document.querySelector('.profile__add-btn');
 const closeBtns = document.querySelectorAll('.modal__close-btn');
@@ -99,16 +99,16 @@ const closePopup = (modal) => {
 }
 
 const openEditProfileModal = () => {
-  if (EditProfileModal){
-    openPopup(EditProfileModal);
+  if (editProfileModal){
+    openPopup(editProfileModal);
     nameInput.value = profileName.textContent;
     jobInput.value = profileTitle.textContent;
   }
 };
 
 const openAddPlaceModal = () => {
-  if (AddPlaceModal){
-    openPopup(AddPlaceModal);
+  if (addPlaceModal){
+    openPopup(addPlaceModal);
   }
 };
 const closeModals = () => {
@@ -155,11 +155,20 @@ const resetAddPlaceForm = (placeName, placeImgLink) => {
   placeImgLink.value = null;
 };
 
+const addPlaceFormSubmitButtons = document.querySelectorAll('.modal__submit');
+const disableAddPlaceFormSubmitButton = () => {
+  addPlaceFormSubmitButtons.forEach((button) => {
+    button.setAttribute('disabled', true);
+    button.classList.add('modal__submit_state_disabled');
+  })
+};
+
 const handleAddPlaceForm = (e) => {
   e.preventDefault();
   addSingleGalleryItem(modalPlaceName.value, modalPlaceImgLink.value);
   closeModals();
   resetAddPlaceForm(modalPlaceName, modalPlaceImgLink);
+  disableAddPlaceFormSubmitButton();
 };
 
 addListenerToForm(addPlaceForm, handleAddPlaceForm);
