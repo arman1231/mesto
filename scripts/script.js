@@ -1,3 +1,6 @@
+import { FormValidator } from './FormValidator.js';
+import {Card} from './Card.js'
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -44,11 +47,35 @@ const profileTitle = document.querySelector('.profile__title');
 const modalPlaceName = document.querySelector('#modal__place-name');
 const modalPlaceImgLink = document.querySelector('#modal__place-img-link');
 
+const editProfileForm = document.querySelector('form[name="edit-form"]');
+const addPlaceForm = document.querySelector('form[name="add-form"]');
+const formObject = {
+  formSelector: '.modal__form',
+  inputSelector: '.modal__input',
+  submitButtonSelector: '.modal__submit',
+  inactiveButtonClass: 'modal__submit_state_disabled',
+  inputErrorClass: 'modal__input_state_error',
+  errorClass: 'modal__input-error_active'
+}
+
+const editProfileFormValidator = new FormValidator(formObject, editProfileForm);
+const addPlaceFormValidator = new FormValidator(formObject, addPlaceForm);
+editProfileFormValidator.enableValidation();
+addPlaceFormValidator.enableValidation();
+
 const render = (arr) => {
   arr.forEach((element) => {
-    renderGalleryItems(element.name, element.link);
+    const card = new Card (element, '#gallery__item');
+    const cardElement = card.generateCard();
+    gallery.append(cardElement);
   })
 };
+
+// const render = (arr) => {
+//   arr.forEach((element) => {
+//     renderGalleryItems(element.name, element.link);
+//   })
+// };
 
 const createGalleryItem = (itemTitle, itemImageLink) => {
   const galleryItem = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
@@ -88,7 +115,7 @@ const handleDelete = (e) => {
 
 render(initialCards);
 
-const openPopup = (modal) => {
+export const openPopup = (modal) => {
   modal.classList.add('modal_opened');
   document.addEventListener('keydown', closeOnEsc);
 }
@@ -123,14 +150,10 @@ closeBtns.forEach((btn) => {
 editProfileBtn.addEventListener('click', openEditProfileModal);
 addPlaceBtn.addEventListener('click', openAddPlaceModal);
 
-
-const editProfileForm = document.querySelector('form[name="edit-form"]');
-const addPlaceForm = document.querySelector('form[name="add-form"]');
-
-const imageModal = document.querySelector('.image-modal');
+export const imageModal = document.querySelector('.image-modal');
 const imageModalContainer = document.querySelector('.image-modal__container');
-const modalImageSrc = document.querySelector('.image-modal__img');
-const modalImageCaption = document.querySelector('.image-modal__caption');
+export const modalImageSrc = document.querySelector('.image-modal__img');
+export const modalImageCaption = document.querySelector('.image-modal__caption');
 const modalImageCloseBtn = document.querySelector('.image-modal__close-icon');
 
 const addSingleGalleryItem = (itemTitle, itemImageLink) => {
