@@ -1,4 +1,4 @@
-import {openPopup, modalImageSrc, modalImageCaption, imageModal} from './script.js'
+import {openPopup, modalImageSrc, modalImageCaption, imageModal} from './index.js'
 
 export class Card {
   constructor(data, templateSelector) {
@@ -12,19 +12,22 @@ export class Card {
   }
   generateCard() {
     this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector('.gallery__image');
+    this._galleryLikeButton = this._element.querySelector('.gallery__button');
     this._addListeners();
 
     this._element.querySelector('.gallery__image-title').textContent = this._name;
-    this._element.querySelector('.gallery__image').src = this._link;
-    this._element.querySelector('.gallery__image').alt = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
 
     return this._element;
   }
   _handleLike() {
-    this._element.querySelector('.gallery__button').classList.toggle('gallery__button_active');
+    this._galleryLikeButton.classList.toggle('gallery__button_active');
   }
   _handleDelete() {
-    this._element.querySelector('.gallery__delete-button').closest('.gallery__item').remove();
+    this._element.remove();
+    this._element = null;
   }
   _openImg() {
     modalImageSrc.src = this._link;
@@ -33,8 +36,8 @@ export class Card {
     openPopup(imageModal);
   }
   _addListeners() {
-    this._element.querySelector('.gallery__button').addEventListener('click', () => this._handleLike());
+    this._galleryLikeButton.addEventListener('click', () => this._handleLike());
     this._element.querySelector('.gallery__delete-button').addEventListener('click', () => this._handleDelete());
-    this._element.querySelector('.gallery__image').addEventListener('click', () => this._openImg());
+    this._cardImage.addEventListener('click', () => this._openImg());
   }
 }

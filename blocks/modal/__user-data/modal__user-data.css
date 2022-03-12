@@ -1,5 +1,11 @@
 .modal__user-data {
+  min-height: 157px;
   padding: 0;
   margin: 0;
   border: 0;
+}
+@media screen and (max-width: 768px) and (min-width: 320px) {
+  .modal__user-data {
+    min-height: 189px;
+  }
 }

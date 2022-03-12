@@ -38,7 +38,7 @@ export class FormValidator {
     return !inputElement.validity.valid;
     })
     }
-  _toggleButtonState () {
+  toggleButtonState () {
     if(this._hasInvalidInput(this._inputList)) {
       this._buttonElement.classList.add(this._formObject.inactiveButtonClass)
       this._buttonElement.setAttribute('disabled', true);
@@ -48,7 +48,7 @@ export class FormValidator {
     }
   }
   _setEventListeners() {
-    this._toggleButtonState();
+    this.toggleButtonState();
     // Обойдём все элементы полученной коллекции
     this._inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
@@ -56,7 +56,7 @@ export class FormValidator {
         // Внутри колбэка вызовем isValid,
         // передав ей форму и проверяемый элемент
         this._isValid(inputElement)
-        this._toggleButtonState();
+        this.toggleButtonState();
       });
     });
   };

@@ -1,5 +1,5 @@
+import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js';
-import {Card} from './Card.js'
 
 const initialCards = [
   {
@@ -28,16 +28,13 @@ const initialCards = [
   },
 ];
 const gallery = document.querySelector('.gallery');
-const galleryItemTemplate = document.querySelector('#gallery__item').content;
-const galleryImgEl = document.querySelector('.gallery__image');
 
 const modals = document.querySelectorAll('.modal');
-const editProfileModal = document.querySelector('.modal_edit-profile');
+const modalEditProfile = document.querySelector('.modal_edit-profile');
 const addPlaceModal = document.querySelector('.modal_add-new-place');
 const editProfileBtn = document.querySelector('.profile__edit-btn');
 const addPlaceBtn = document.querySelector('.profile__add-btn');
 const closeBtns = document.querySelectorAll('.modal__close-btn');
-const forms = document.querySelectorAll('.modal__form');
 const nameInput = document.querySelector('#modal__name');
 const jobInput = document.querySelector('#modal__title');
 const profileName = document.querySelector('.profile__name');
@@ -65,52 +62,19 @@ addPlaceFormValidator.enableValidation();
 
 const render = (arr) => {
   arr.forEach((element) => {
-    const card = new Card (element, '#gallery__item');
-    const cardElement = card.generateCard();
-    gallery.append(cardElement);
+    createGalleryItem(element);
+    const cardElement = createGalleryItem(element);
+    renderGalleryItems(cardElement);
   })
 };
-
-// const render = (arr) => {
-//   arr.forEach((element) => {
-//     renderGalleryItems(element.name, element.link);
-//   })
-// };
-
-const createGalleryItem = (itemTitle, itemImageLink) => {
-  const galleryItem = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
-  const galleryImgEl = galleryItem.querySelector('.gallery__image');
-  galleryItem.querySelector('.gallery__image-title').textContent = itemTitle;
-  galleryImgEl.src = itemImageLink;
-  galleryImgEl.alt = itemTitle;
-  addListeners(galleryItem);
-  return galleryItem;
+const createGalleryItem = (data) => {
+  const card = new Card (data, '#gallery__item');
+  const cardElement = card.generateCard();
+  return cardElement;
 };
 
-const renderGalleryItems = (itemTitle, itemImageLink) => {
-  const galleryItem = createGalleryItem(itemTitle, itemImageLink);
-  gallery.appendChild(galleryItem);
-};
-
-const openImg = (e) => {
-  openPopup(imageModal);
-  modalImageSrc.src = e.target.src;
-  modalImageSrc.alt = e.target.alt;
-  modalImageCaption.textContent = e.target.alt;
-};
-
-const addListeners = (el) => {
-  el.querySelector('.gallery__button').addEventListener('click', handleLike);
-  el.querySelector('.gallery__delete-button').addEventListener('click', handleDelete);
-  el.querySelector('.gallery__image').addEventListener('click', openImg);
-};
-
-const handleLike = (e) => {
-  e.target.classList.toggle('gallery__button_active');
-};
-
-const handleDelete = (e) => {
-  e.target.closest('.gallery__item').remove();
+const renderGalleryItems = (cardElement) => {
+  gallery.append(cardElement);
 };
 
 render(initialCards);
@@ -126,8 +90,8 @@ const closePopup = (modal) => {
 }
 
 const openEditProfileModal = () => {
-  if (editProfileModal){
-    openPopup(editProfileModal);
+  if (modalEditProfile){
+    openPopup(modalEditProfile);
     nameInput.value = profileName.textContent;
     jobInput.value = profileTitle.textContent;
   }
@@ -151,14 +115,16 @@ editProfileBtn.addEventListener('click', openEditProfileModal);
 addPlaceBtn.addEventListener('click', openAddPlaceModal);
 
 export const imageModal = document.querySelector('.image-modal');
-const imageModalContainer = document.querySelector('.image-modal__container');
 export const modalImageSrc = document.querySelector('.image-modal__img');
 export const modalImageCaption = document.querySelector('.image-modal__caption');
-const modalImageCloseBtn = document.querySelector('.image-modal__close-icon');
 
-const addSingleGalleryItem = (itemTitle, itemImageLink) => {
-  const galleryItem = createGalleryItem(itemTitle, itemImageLink);
-  gallery.prepend(galleryItem);
+const addSingleGalleryItem = () => {
+  const data = {
+    name: modalPlaceName.value,
+    link: modalPlaceImgLink.value
+  }
+  const cardElement = createGalleryItem(data);
+  gallery.prepend(cardElement);
 }
 
 const addListenerToForm = (form, funcName) => {
@@ -166,6 +132,7 @@ const addListenerToForm = (form, funcName) => {
 };
 
 const handleEditProfileForm = (e) => {
+  editProfileFormValidator.toggleButtonState();
   e.preventDefault();
   profileName.textContent = nameInput.value;
   profileTitle.textContent = jobInput.value;
@@ -178,20 +145,13 @@ const resetAddPlaceForm = (placeName, placeImgLink) => {
   placeImgLink.value = null;
 };
 
-const addPlaceFormSubmitButtons = document.querySelectorAll('.modal__submit');
-const disableAddPlaceFormSubmitButton = () => {
-  addPlaceFormSubmitButtons.forEach((button) => {
-    button.setAttribute('disabled', true);
-    button.classList.add('modal__submit_state_disabled');
-  })
-};
 
 const handleAddPlaceForm = (e) => {
   e.preventDefault();
-  addSingleGalleryItem(modalPlaceName.value, modalPlaceImgLink.value);
+  addSingleGalleryItem();
   closeModals();
   resetAddPlaceForm(modalPlaceName, modalPlaceImgLink);
-  disableAddPlaceFormSubmitButton();
+  addPlaceFormValidator.toggleButtonState();
 };
 
 addListenerToForm(addPlaceForm, handleAddPlaceForm);
@@ -200,17 +160,11 @@ addListenerToForm(addPlaceForm, handleAddPlaceForm);
 modals.forEach((modal) => {
   modal.addEventListener('click', (e) => {
     if (e.currentTarget === e.target) {
-      closePopup(modal);
+      closeModals();
     }
   })
 });
 
-//закрываем попап с картинкой на клик по оверлею
-imageModalContainer.addEventListener('click', (e) => {
-  if (e.currentTarget === e.target) {
-        closeModals();
-      }
-});
 
 // функция закрытия на ESC
 const closeOnEsc = (e) => {
