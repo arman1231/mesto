@@ -37,6 +37,7 @@
 @import url(../blocks/modal/__close-icon/modal__close-icon.css);
 @import url(../blocks/modal/__heading/modal__heading.css);
 @import url(../blocks/modal/__input/modal__input.css);
+@import url(../blocks/modal/__input-error/modal__input-error.css);
 @import url(../blocks/modal/__input/_state/modal__input_state_error.css);
 @import url(../blocks/modal/__submit/modal__submit.css);
 @import url(../blocks/modal/__submit/_state/modal__submit_state_disabled.css);

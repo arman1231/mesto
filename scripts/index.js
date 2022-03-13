@@ -31,7 +31,7 @@ const gallery = document.querySelector('.gallery');
 
 const modals = document.querySelectorAll('.modal');
 const modalEditProfile = document.querySelector('.modal_edit-profile');
-const addPlaceModal = document.querySelector('.modal_add-new-place');
+const modalAddPlace = document.querySelector('.modal_add-new-place');
 const editProfileBtn = document.querySelector('.profile__edit-btn');
 const addPlaceBtn = document.querySelector('.profile__add-btn');
 const closeBtns = document.querySelectorAll('.modal__close-btn');
@@ -62,7 +62,6 @@ addPlaceFormValidator.enableValidation();
 
 const render = (arr) => {
   arr.forEach((element) => {
-    createGalleryItem(element);
     const cardElement = createGalleryItem(element);
     renderGalleryItems(cardElement);
   })
@@ -97,9 +96,9 @@ const openEditProfileModal = () => {
   }
 };
 
-const openAddPlaceModal = () => {
-  if (addPlaceModal){
-    openPopup(addPlaceModal);
+const openmodalAddPlace = () => {
+  if (modalAddPlace){
+    openPopup(modalAddPlace);
   }
 };
 const closeModals = () => {
@@ -112,7 +111,7 @@ closeBtns.forEach((btn) => {
   btn.addEventListener('click', closeModals)
 });
 editProfileBtn.addEventListener('click', openEditProfileModal);
-addPlaceBtn.addEventListener('click', openAddPlaceModal);
+addPlaceBtn.addEventListener('click', openmodalAddPlace);
 
 export const imageModal = document.querySelector('.image-modal');
 export const modalImageSrc = document.querySelector('.image-modal__img');
