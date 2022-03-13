@@ -32,20 +32,19 @@ const gallery = document.querySelector('.gallery');
 const modals = document.querySelectorAll('.modal');
 const modalEditProfile = document.querySelector('.modal_edit-profile');
 const modalAddPlace = document.querySelector('.modal_add-new-place');
-const editProfileBtn = document.querySelector('.profile__edit-btn');
-const addPlaceBtn = document.querySelector('.profile__add-btn');
+const profileEditBtn = document.querySelector('.profile__edit-btn');
+const placeAddBtn = document.querySelector('.profile__add-btn');
 const closeBtns = document.querySelectorAll('.modal__close-btn');
 const nameInput = document.querySelector('#modal__name');
 const jobInput = document.querySelector('#modal__title');
 const profileName = document.querySelector('.profile__name');
 const profileTitle = document.querySelector('.profile__title');
 
-
 const modalPlaceName = document.querySelector('#modal__place-name');
 const modalPlaceImgLink = document.querySelector('#modal__place-img-link');
 
-const editProfileForm = document.querySelector('form[name="edit-form"]');
-const addPlaceForm = document.querySelector('form[name="add-form"]');
+const formEditProfile = document.querySelector('form[name="edit-form"]');
+const formAddPlace = document.querySelector('form[name="add-form"]');
 const formObject = {
   formSelector: '.modal__form',
   inputSelector: '.modal__input',
@@ -55,10 +54,10 @@ const formObject = {
   errorClass: 'modal__input-error_active'
 }
 
-const editProfileFormValidator = new FormValidator(formObject, editProfileForm);
-const addPlaceFormValidator = new FormValidator(formObject, addPlaceForm);
-editProfileFormValidator.enableValidation();
-addPlaceFormValidator.enableValidation();
+const formEditProfileValidator = new FormValidator(formObject, formEditProfile);
+const formAddPlaceValidator = new FormValidator(formObject, formAddPlace);
+formEditProfileValidator.enableValidation();
+formAddPlaceValidator.enableValidation();
 
 const render = (arr) => {
   arr.forEach((element) => {
@@ -96,7 +95,7 @@ const openEditProfileModal = () => {
   }
 };
 
-const openmodalAddPlace = () => {
+const openModalAddPlace = () => {
   if (modalAddPlace){
     openPopup(modalAddPlace);
   }
@@ -110,8 +109,8 @@ const closeModals = () => {
 closeBtns.forEach((btn) => {
   btn.addEventListener('click', closeModals)
 });
-editProfileBtn.addEventListener('click', openEditProfileModal);
-addPlaceBtn.addEventListener('click', openmodalAddPlace);
+profileEditBtn.addEventListener('click', openEditProfileModal);
+placeAddBtn.addEventListener('click', openModalAddPlace);
 
 export const imageModal = document.querySelector('.image-modal');
 export const modalImageSrc = document.querySelector('.image-modal__img');
@@ -130,30 +129,29 @@ const addListenerToForm = (form, funcName) => {
   form.addEventListener('submit', funcName);
 };
 
-const handleEditProfileForm = (e) => {
-  editProfileFormValidator.toggleButtonState();
+const handleFormEditProfile = (e) => {
+  formEditProfileValidator.toggleButtonState();
   e.preventDefault();
   profileName.textContent = nameInput.value;
   profileTitle.textContent = jobInput.value;
   closeModals();
 };
-addListenerToForm(editProfileForm, handleEditProfileForm);
+addListenerToForm(formEditProfile, handleFormEditProfile);
 
-const resetAddPlaceForm = (placeName, placeImgLink) => {
+const resetFormAddPlace = (placeName, placeImgLink) => {
   placeName.value = null;
   placeImgLink.value = null;
 };
 
-
-const handleAddPlaceForm = (e) => {
+const handleFormAddPlace = (e) => {
   e.preventDefault();
   addSingleGalleryItem();
   closeModals();
-  resetAddPlaceForm(modalPlaceName, modalPlaceImgLink);
-  addPlaceFormValidator.toggleButtonState();
+  resetFormAddPlace(modalPlaceName, modalPlaceImgLink);
+  formAddPlaceValidator.toggleButtonState();
 };
 
-addListenerToForm(addPlaceForm, handleAddPlaceForm);
+addListenerToForm(formAddPlace, handleFormAddPlace);
 
 // закрываем модальные окна на клик по оверлею
 modals.forEach((modal) => {
@@ -163,7 +161,6 @@ modals.forEach((modal) => {
     }
   })
 });
-
 
 // функция закрытия на ESC
 const closeOnEsc = (e) => {
