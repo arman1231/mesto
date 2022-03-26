@@ -1,10 +1,9 @@
-import {openPopup, modalImageSrc, modalImageCaption, imageModal} from './index.js'
-
 export class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
   _getTemplate() {
     const galleryItem = document.querySelector(this._templateSelector).content.querySelector('.gallery__item').cloneNode(true);
@@ -29,15 +28,9 @@ export class Card {
     this._element.remove();
     this._element = null;
   }
-  _openImg() {
-    modalImageSrc.src = this._link;
-    modalImageSrc.alt = this._name;
-    modalImageCaption.textContent = this._name;
-    openPopup(imageModal);
-  }
   _addListeners() {
     this._galleryLikeButton.addEventListener('click', () => this._handleLike());
     this._element.querySelector('.gallery__delete-button').addEventListener('click', () => this._handleDelete());
-    this._cardImage.addEventListener('click', () => this._openImg());
+    this._cardImage.addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }
 }

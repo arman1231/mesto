@@ -6,43 +6,43 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto - сервис для хранения фотографий из путешествий</title>
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
 </head>
 
 <body class="wrap">
   <div class="page">
     <header class="header page__header">
-      <img class="header__logo" src="./images/logo.svg" alt="Логотип вебсайта Место ">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип вебсайта Место ">
     </header>
     <main class="content page__content">
       <section class="profile">
         <div class="profile__general">
-          <img class="profile__user-image" src="./images/image.jpg" alt="Изображение профиля">
+          <img class="profile__user-image" src="<%=require('./images/image.jpg')%>" alt="Изображение профиля">
           <div class="profile__credentials">
             <div class="profile__info">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
               <button class="profile__edit-btn" type="button">
-                <img class="profile__edit-icon" src="./images/pencil.svg" alt="Редактировать профиль">
+                <img class="profile__edit-icon" src="<%=require('./images/pencil.svg')%>" alt="Редактировать профиль">
               </button>
             </div>
             <p class="profile__title">Исследователь океана</p>
           </div>
         </div>
         <button class="profile__add-btn" type="button">
-          <img class="profile__add-icon" src="./images/cross.svg" alt="Добавить фото">
+          <img class="profile__add-icon" src="<%=require('./images/cross.svg')%>" alt="Добавить фото">
         </button>
       </section>
       <section class="gallery page__gallery">
         <template id="gallery__item">
           <div class="gallery__item">
             <button class="gallery__delete-button">
-              <img class="gallery__delete-icon" src="./images/trashbin.svg" alt="Удалить карточку">
+              <img class="gallery__delete-icon" src="<%=require('./images/trashbin.svg')%>" alt="Удалить карточку">
             </button>
             <img class="gallery__image">
             <div class="gallery__info">
               <p class="gallery__image-title"></p>
               <button class="gallery__button" type="button">
-                <img class="gallery__icon" src="./images/heart.svg" alt="Лайк">
+                <img class="gallery__icon" src="<%=require('./images/heart.svg')%>" alt="Лайк">
               </button>
             </div>
           </div>
@@ -55,7 +55,7 @@
     <div class="modal modal_edit-profile">
       <div class="modal__container">
         <button class="modal__close-btn" type="button">
-          <img class="modal__close-icon" src="./images/close.svg" alt="кнопка закрыть">
+          <img class="modal__close-icon" src="<%=require('./images/close.svg')%>" alt="кнопка закрыть">
         </button>
         <h2 class="modal__heading">Редактировать профиль</h2>
         <form class="modal__form" name="edit-form" action="#" novalidate>
@@ -74,7 +74,7 @@
     <div class="modal modal_add-new-place">
       <div class="modal__container">
         <button class="modal__close-btn" type="button">
-          <img class="modal__close-icon" src="./images/close.svg" alt="кнопка закрыть">
+          <img class="modal__close-icon" src="<%=require('./images/close.svg')%>" alt="кнопка закрыть">
         </button>
         <h2 class="modal__heading">Новое место</h2>
         <form class="modal__form" name="add-form" action="#" novalidate>
@@ -96,7 +96,7 @@
       <!-- <div class="image-modal__container"> -->
         <div class="image-modal__wrapper">
           <button class="modal__close-btn" type="button">
-            <img class="modal__close-icon" src="./images/close.svg" alt="кнопка закрыть">
+            <img class="modal__close-icon" src="<%=require('./images/close.svg')%>" alt="кнопка закрыть">
           </button>
           <img class="image-modal__img">
           <p class="image-modal__caption"></p>
@@ -104,7 +104,7 @@
       <!-- </div> -->
     </div>
   </div>
-  <script type="module" src="./scripts/index.js"></script>
+  <!-- <script type="module" src="./scripts/index.js"></script> -->
 </body>
 
 </html>
