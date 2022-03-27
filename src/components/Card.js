@@ -14,7 +14,6 @@ export class Card {
     this._cardImage = this._element.querySelector('.gallery__image');
     this._galleryLikeButton = this._element.querySelector('.gallery__button');
     this._addListeners();
-
     this._element.querySelector('.gallery__image-title').textContent = this._name;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;

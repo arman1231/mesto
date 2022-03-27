@@ -1,15 +1,16 @@
 export default class Popup {
-  constructor(popupSelector) {
-    this._modal = popupSelector;
+  constructor(modal) {
+    this._modal = modal;
+    this._handleEscClose = this._handleEscClose.bind(this)
   }
   open() {
     this._modal.classList.add("modal_opened");
-    document.addEventListener("keydown", (e) => this._handleEscClose(e));
+    document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
     this._modal.classList.remove("modal_opened");
-    document.removeEventListener("keydown", (e) => this._handleEscClose(e));
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 
   _handleEscClose(e) {
