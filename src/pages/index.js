@@ -67,8 +67,8 @@ modalWithFormAddPlace.setEventListeners();
 const openEditProfileModal = () => {
     modalWithFormEditProfile.open()
     const data = newUser.getUserInfo();
-    nameInput.value = data.userName.textContent;
-    jobInput.value = data.userInfo.textContent;
+    nameInput.value = data.userName;
+    jobInput.value = data.userInfo;
 };
 
 const openModalAddPlace = () => {

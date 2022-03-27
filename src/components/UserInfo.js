@@ -5,8 +5,8 @@ export class UserInfo {
   }
   getUserInfo() {
     const data = {}
-    data.userName = this._userName;
-    data.userInfo = this._userInfo;
+    data.userName = this._userName.textContent;
+    data.userInfo = this._userInfo.textContent;
     return data;
   }
   setUserInfo(data) {
