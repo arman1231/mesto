@@ -17,15 +17,16 @@
     <main class="content page__content">
       <section class="profile">
         <div class="profile__general">
-          <img class="profile__user-image" src="<%=require('./images/image.jpg')%>" alt="Изображение профиля">
+          <button class="profile__edit-user-image-button" type="button">
+          </button>
           <div class="profile__credentials">
             <div class="profile__info">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <h1 class="profile__name"></h1>
               <button class="profile__edit-btn" type="button">
                 <img class="profile__edit-icon" src="<%=require('./images/pencil.svg')%>" alt="Редактировать профиль">
               </button>
             </div>
-            <p class="profile__title">Исследователь океана</p>
+            <p class="profile__title"></p>
           </div>
         </div>
         <button class="profile__add-btn" type="button">
@@ -41,9 +42,12 @@
             <img class="gallery__image">
             <div class="gallery__info">
               <p class="gallery__image-title"></p>
-              <button class="gallery__button" type="button">
-                <img class="gallery__icon" src="<%=require('./images/heart.svg')%>" alt="Лайк">
-              </button>
+              <div class="gallery__like-section">
+                <button class="gallery__button" type="button">
+                  <img class="gallery__icon" src="<%=require('./images/heart.svg')%>" alt="Лайк">
+                </button>
+                <span class="gallery__like-counter"></span>
+              </div>
             </div>
           </div>
         </template>
@@ -102,6 +106,37 @@
           <p class="image-modal__caption"></p>
         </div>
       <!-- </div> -->
+    </div>
+    <div class="modal modal_confirm-delete">
+      <div class="modal__container">
+        <button class="modal__close-btn" type="button">
+          <img class="modal__close-icon" src="<%=require('./images/close.svg')%>" alt="кнопка закрыть">
+        </button>
+        <h2 class="modal__heading">Вы уверены?</h2>
+        <form class="modal__form" name="delete-form" action="#" novalidate>
+          <fieldset class="modal__handlers">
+            <button class="modal__submit" type="submit">Да</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div class="modal modal_edit-avatar">
+      <div class="modal__container">
+        <button class="modal__close-btn" type="button">
+          <img class="modal__close-icon" src="<%=require('./images/close.svg')%>" alt="кнопка закрыть">
+        </button>
+        <h2 class="modal__heading">Обновить аватар</h2>
+        <form class="modal__form" name="update-avatar-form" action="#" novalidate>
+          <fieldset class="modal__user-data">
+            <input class="modal__input" id="modal__avatar" type="url" name="avatar"
+              placeholder="Ссылка на картинку" required>
+            <span class="modal__input-error avatar-error"></span>
+          </fieldset>
+          <fieldset class="modal__handlers">
+            <button class="modal__submit" type="submit">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
     </div>
   </div>
   <!-- <script type="module" src="./scripts/index.js"></script> -->

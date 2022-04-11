@@ -16,7 +16,9 @@ export class PopupWithForm extends Popup {
     });
     return data;
   }
-
+  alternateSubmit(anotherFunctionCallbackOnSubmit) {
+    this._functionCallbackOnSubmit = anotherFunctionCallbackOnSubmit;
+  }
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', () => { this._functionCallbackOnSubmit(this._getInputValues()) });

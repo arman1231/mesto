@@ -25,11 +25,15 @@ export const initialCards = [
   },
 ];
 export const gallery = document.querySelector('.gallery');
-
 export const modalEditProfile = document.querySelector('.modal_edit-profile');
 export const modalAddPlace = document.querySelector('.modal_add-new-place');
+export const modalConfirmDelete = document.querySelector('.modal_confirm-delete');
+export const modalEditAvatar = document.querySelector('.modal_edit-avatar');
+export const buttonSubmit = document.querySelector('.modal__submit');
+export const buttonDelete = document.querySelector('.gallery__delete-button');
 export const profileEditBtn = document.querySelector('.profile__edit-btn');
 export const placeAddBtn = document.querySelector('.profile__add-btn');
+export const avatarEditBtn = document.querySelector('.profile__edit-user-image-button');
 export const nameInput = document.querySelector('#modal__name');
 export const jobInput = document.querySelector('#modal__title');
 export const profileName = document.querySelector('.profile__name');
@@ -39,6 +43,8 @@ export const imageModal = document.querySelector('.image-modal');
 
 export const formEditProfile = document.querySelector('form[name="edit-form"]');
 export const formAddPlace = document.querySelector('form[name="add-form"]');
+export const formDeletePlace = document.querySelector('form[name="delete-form"]');
+export const formEditAvatar = document.querySelector('form[name="update-avatar-form"]');
 export const formObject = {
   formSelector: '.modal__form',
   inputSelector: '.modal__input',
