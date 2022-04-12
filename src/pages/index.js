@@ -6,6 +6,7 @@ import { FormValidator } from '../components/FormValidator.js';
 import { Section} from '../components/Section.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithConfirm } from '../components/PopupWithConfirm.js';
 import { UserInfo } from '../components/UserInfo.js';
 
 
@@ -16,6 +17,14 @@ const renderLoading = (isLoading) => {
     buttonSubmit.textContent = 'Сохранить';
   }
 };
+let userId;
+const userObj = {
+  userName: profileName,
+  userInfo: profileTitle,
+  avatar: avatarEditBtn
+}
+
+const newUser = new UserInfo(userObj);
 
 const getUserInfoPromise = api.getUserInfo();
 const getInitialCardsPromise = api.getInitialCards();
@@ -28,23 +37,14 @@ Promise.all([getUserInfoPromise, getInitialCardsPromise])
       _id: res[0]._id,
       avatar: res[0].avatar
     }
-    avatarEditBtn.style.backgroundImage = `url(${res[0].avatar})`;
     userId = res[0]._id;
     newUser.setUserInfo(res[0])
+    newUser.setUserAvatar(res[0])
 
-    const cardList = new Section({
-      data: res[1],
-      renderer: (data) => {
-        cardList.setItem(createGalleryItem(data));
-      }
-    }, gallery);
-    cardList.renderItems();
+
+    cardList.renderItems(res[1]);
   })
-  .catch((err) => {
-    console.log(err);
-})
-
-let userId;
+  .catch((error) => console.log(error))
 
 // api.getUserInfo().then((res) => {
 //   res = {
@@ -85,18 +85,22 @@ const createGalleryItem = (data) => {
   (id) => {
     modalWithConfirmDelete.open();
     modalWithConfirmDelete.alternateSubmit(() => {
-      api.deleteCard(`${id}`);
-      card.removeFromPage();
-      modalWithConfirmDelete.close();
+      api.deleteCard(`${id}`)
+      .then(() => {
+
+        card.removeFromPage();
+        modalWithConfirmDelete.close();
+      })
+      .catch((error) => console.log(error));
     })
   },
   (id) => {
     if (card.isLiked()) {
       api.removeLike(id).then(res => {
-        card.handleLike(res.likes)})
+        card.handleLike(res.likes)}).catch((error) => console.log(error))
     } else {
       api.setLike(id).then(res => {
-        card.handleLike(res.likes)})
+        card.handleLike(res.likes)}).catch((error) => console.log(error))
     }
   });
   const cardElement = card.generateCard();
@@ -109,14 +113,6 @@ const cardList = new Section({
     cardList.setItem(createGalleryItem(data));
   }
 }, gallery);
-cardList.renderItems();
-
-const userObj = {
-  userName: profileName,
-  userInfo: profileTitle
-}
-
-const newUser = new UserInfo(userObj);
 
 const addSingleGalleryItem = (data) => {
   const cardElement = createGalleryItem(data);
@@ -129,11 +125,15 @@ const handleFormEditProfile = (data) => {
     userName: data['user-name'],
     userInfo: data['user-title']
   }
-  newUser.setUserInfo(data);
-  api.setUserInfo(data).finally(() => {
+  api.setUserInfo(data)
+  .then(() => {
+    newUser.setUserInfo(data);
+    modalWithFormEditProfile.close();
+  })
+  .catch((error) => console.log(error))
+  .finally(() => {
     renderLoading(false);
   });
-  modalWithFormEditProfile.close()
 };
 
 const handleFormAddPlace = (data) => {
@@ -147,25 +147,32 @@ const handleFormAddPlace = (data) => {
     link: data['place-img-link'],
     likes: [],
   }
-  addSingleGalleryItem(data);
-  api.addNewCard(data).finally(() => {
+  api.addNewCard(data)
+  .then((res) => {
+    addSingleGalleryItem(res);
+    modalWithFormAddPlace.close();
+  })
+  .catch((error) => console.log(error))
+  .finally(() => {
     renderLoading(false);
   });
-  modalWithFormAddPlace.close();
 };
 
 const handleFormEditAvatar = (data) => {
   renderLoading(true);
-  api.updateAvatar(data.avatar).finally(() => {
+  api.updateAvatar(data.avatar)
+  .then(() => {
+    avatarEditBtn.style.backgroundImage = `url(${data.avatar})`;
+    modalWithEditAvatar.close();
+  }).catch((error) => console.log(error))
+  .finally(() => {
     renderLoading(false);
   });
-  avatarEditBtn.style.backgroundImage = `url(${data.avatar})`;
-  modalWithEditAvatar.close();
 }
 
 const modalWithFormEditProfile = new PopupWithForm(modalEditProfile, handleFormEditProfile);
 const modalWithFormAddPlace = new PopupWithForm(modalAddPlace, handleFormAddPlace);
-const modalWithConfirmDelete = new PopupWithForm(modalConfirmDelete);
+const modalWithConfirmDelete = new PopupWithConfirm(modalConfirmDelete);
 const modalWithEditAvatar = new PopupWithForm(modalEditAvatar, handleFormEditAvatar);
 modalWithFormEditProfile.setEventListeners();
 modalWithFormAddPlace.setEventListeners();

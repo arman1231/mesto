@@ -3,94 +3,21 @@ class Api {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
-
+  _checkResponse(res) {
+      if (res.ok) {
+        return res.json();
+      }
+      console.log(`Ошибка: ${res.status}`);
+      return Promise.reject(`Ошибка: ${res.status}`);
+  }
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: {
-        authorization: "1783b28f-4ef8-4ae0-a25b-31efcb377bfc",
-      },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      console.log(`Ошибка: ${res.status}`);
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+      headers: this._headers,
+    }).then(this._checkResponse);
   }
-  setUserInfo({userName, userInfo}) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: {
-        authorization: '1783b28f-4ef8-4ae0-a25b-31efcb377bfc',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: userName,
-        about: userInfo
-      })
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      console.log(`Ошибка: ${res.status}`);
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  }
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: {
-        authorization: "1783b28f-4ef8-4ae0-a25b-31efcb377bfc",
-      },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      console.log(`Ошибка: ${res.status}`);
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  }
-  addNewCard({name, link}) {
-    return fetch(`${this._baseUrl}/cards`, {
-      method: 'POST',
-      headers: {
-        authorization: "1783b28f-4ef8-4ae0-a25b-31efcb377bfc",
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        link: link
-      }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      console.log(`Ошибка: ${res.status}`);
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  }
-  deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: "1783b28f-4ef8-4ae0-a25b-31efcb377bfc",
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          _id: id
-      }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      console.log(`Ошибка: ${res.status}`);
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  }
-  // getCardLikes() {
-  //   return fetch(`${this._baseUrl}/cards`, {
-  //     headers: {
-  //       authorization: "1783b28f-4ef8-4ae0-a25b-31efcb377bfc",
-  //     },
+  // getUserInfo() {
+  //   return fetch(`${this._baseUrl}/users/me`, {
+  //     headers: this._headers,
   //   }).then((res) => {
   //     if (res.ok) {
   //       return res.json();
@@ -99,61 +26,63 @@ class Api {
   //     return Promise.reject(`Ошибка: ${res.status}`);
   //   });
   // }
+  setUserInfo({ userName, userInfo }) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: userName,
+        about: userInfo,
+      }),
+    }).then(this._checkResponse);
+  }
+  getInitialCards() {
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers,
+    }).then(this._checkResponse);
+  }
+  addNewCard({ name, link }) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      }),
+    }).then(this._checkResponse);
+  }
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+      body: JSON.stringify({
+        _id: id,
+      }),
+    }).then(this._checkResponse);
+  }
+
   setLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: 'PUT',
-      headers: {
-        authorization: '1783b28f-4ef8-4ae0-a25b-31efcb377bfc',
-        'Content-Type': 'application/json'
-      },
-      // body: JSON.stringify({
-      //   likes: '222'
-      // })
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      console.log(`Ошибка: ${res.status}`);
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._checkResponse);
   }
 
   removeLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: 'DELETE',
-      headers: {
-        authorization: '1783b28f-4ef8-4ae0-a25b-31efcb377bfc',
-        'Content-Type': 'application/json'
-      },
-      // body: JSON.stringify({
-      //   likes: '222'
-      // })
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      console.log(`Ошибка: ${res.status}`);
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._checkResponse);
   }
 
   updateAvatar(link) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: {
-        authorization: '1783b28f-4ef8-4ae0-a25b-31efcb377bfc',
-        'Content-Type': 'application/json'
-      },
+      method: "PATCH",
+      headers: this._headers,
       body: JSON.stringify({
-        avatar: link
+        avatar: link,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      console.log(`Ошибка: ${res.status}`);
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 }
 
@@ -164,4 +93,3 @@ export const api = new Api({
     "Content-Type": "application/json",
   },
 });
-

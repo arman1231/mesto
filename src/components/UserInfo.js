@@ -2,6 +2,7 @@ export class UserInfo {
   constructor(data) {
     this._userName = data.userName;
     this._userInfo = data.userInfo;
+    this._avatar = data.avatar;
   }
   getUserInfo() {
     const data = {}
@@ -12,5 +13,8 @@ export class UserInfo {
   setUserInfo(data) {
     this._userName.textContent = data.userName;
     this._userInfo.textContent = data.userInfo;
+  }
+  setUserAvatar(data) {
+    this._avatar.style.backgroundImage = `url(${data.avatar})`;
   }
 }
