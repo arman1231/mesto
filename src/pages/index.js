@@ -1,5 +1,5 @@
 import './index.css';
-import { initialCards, gallery, modalEditProfile, modalAddPlace, profileEditBtn, placeAddBtn, nameInput, jobInput, profileName, profileTitle, imageModal, formEditProfile, formAddPlace, formObject, modalConfirmDelete, formEditAvatar, avatarEditBtn, modalEditAvatar, buttonSubmit} from '../utils/constants.js'
+import { initialCards, gallery, modalEditProfile, modalAddPlace, profileEditBtn, placeAddBtn, nameInput, jobInput, profileName, profileTitle, imageModal, formEditProfile, formAddPlace, formObject, modalConfirmDelete, formEditAvatar, avatarEditBtn, modalEditAvatar, buttonsSubmit} from '../utils/constants.js'
 import { api } from '../components/Api.js'
 import { Card } from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js';
@@ -12,9 +12,13 @@ import { UserInfo } from '../components/UserInfo.js';
 
 const renderLoading = (isLoading) => {
   if (isLoading) {
-    buttonSubmit.textContent = 'Сохранение...';
+    buttonsSubmit.forEach((el) => {
+      el.textContent = 'Сохранение...';
+    });
   } else {
-    buttonSubmit.textContent = 'Сохранить';
+    buttonsSubmit.forEach((el) => {
+      el.textContent = 'Сохранить';
+    });
   }
 };
 let userId;
@@ -45,29 +49,6 @@ Promise.all([getUserInfoPromise, getInitialCardsPromise])
     cardList.renderItems(res[1]);
   })
   .catch((error) => console.log(error))
-
-// api.getUserInfo().then((res) => {
-//   res = {
-//     userName: res['name'],
-//     userInfo: res['about'],
-//     _id: res._id,
-//     avatar: res.avatar
-//   }
-//   avatarEditBtn.style.backgroundImage = `url(${res.avatar})`;
-//   userId = res._id;
-//   newUser.setUserInfo(res)
-// })
-
-
-// api.getInitialCards().then((res) => {
-//   const cardList = new Section({
-//     data: res,
-//     renderer: (data) => {
-//       cardList.setItem(createGalleryItem(data));
-//     }
-//   }, gallery);
-//   cardList.renderItems();
-// })
 
 const formEditProfileValidator = new FormValidator(formObject, formEditProfile);
 const formAddPlaceValidator = new FormValidator(formObject, formAddPlace);
@@ -162,7 +143,8 @@ const handleFormEditAvatar = (data) => {
   renderLoading(true);
   api.updateAvatar(data.avatar)
   .then(() => {
-    avatarEditBtn.style.backgroundImage = `url(${data.avatar})`;
+    // avatarEditBtn.style.backgroundImage = `url(${data.avatar})`;
+    newUser.setUserAvatar(data)
     modalWithEditAvatar.close();
   }).catch((error) => console.log(error))
   .finally(() => {
@@ -192,6 +174,7 @@ const openModalAddPlace = () => {
 };
 
 const openEditAvatar = () => {
+  formEditAvatarValidator.toggleButtonState();
   modalWithEditAvatar.open();
 }
 profileEditBtn.addEventListener('click', openEditProfileModal);
